@@ -14,5 +14,5 @@ class EmailPostForm(forms.Form):
 class CommentForm(forms.ModelForm):
 
     class Meta:
-        mdoel = Comment
+        model = Comment
         fields = ["name", "email", "body"]
