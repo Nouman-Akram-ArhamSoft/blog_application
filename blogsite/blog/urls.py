@@ -1,10 +1,15 @@
 from django.urls import path
 from . import views
 
+
 app_name = "blog"
 
 urlpatterns = [
     path("", views.post_list, name="post_list"),
+    path("blogwave/", views.get_dashboard, name="blog_wave"),
+    path("contact/", views.get_contact_blog, name="contact"),
+    path("category/", views.get_category, name="category"),
+    path("about/", views.get_about, name="about"),
     # path("", views.PostListView.as_view(), name="post_list"),
     path(
         "<int:year>/<int:month>/<int:day>/<slug:post>/",
