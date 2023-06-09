@@ -1,11 +1,11 @@
 from django.contrib import admin
-from .models import Post, Comment, Category
+from .models import Post, Comment, Category, Profile
 
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ["title", "slug", "author", "publish", "status"]
-    list_filter = ["status", "created", "publish", "author"]
+    list_display = ["title", "slug", "category", "author", "publish", "status"]
+    list_filter = ["status", "created","category", "publish", "author", "user_visit"]
     search_fields = ["title", "body"]
     prepopulated_fields = {"slug": ("title",)}
     raw_id_fields = ["author"]
@@ -26,3 +26,9 @@ class CategoryAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_filter = ["created", "updated"]
     search_fields = ["title"]
+
+
+@admin.register(Profile)
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ["user", "bio"]
+    search_fields = ["user"]

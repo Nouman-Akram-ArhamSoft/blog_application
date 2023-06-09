@@ -212,7 +212,7 @@ section {
 }
 
 /*--------------------------------------------------------------
-# Desktop Navigation 
+# Desktop Navigation
 --------------------------------------------------------------*/
 @media (min-width: 1280px) {
   .navbar {
@@ -453,6 +453,7 @@ section {
 /*--------------------------------------------------------------
 # Posts
 --------------------------------------------------------------*/
+
 .post-entry-1 {
   margin-bottom: 30px;
 }
@@ -872,6 +873,8 @@ section {
   position: relative;
 }
 
+
+
 .link-video span {
   top: 50%;
   left: 50%;
@@ -922,6 +925,20 @@ section {
   border: 1px solid rgba(var(--color-black-rgb), 0.5);
 }
 
+img.custom-image{
+  width: 90% !important;
+  height: auto !important;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 80%; /* Adjust the width for smaller screens */
+  }
+
+  /* Media query for screens with a maximum width of 576px */
+  @media (max-width: 576px) {
+    width: 100%; /* Adjust the width for even smaller screens */
+  }
+}
 /*--------------------------------------------------------------
 # Comments
 --------------------------------------------------------------*/

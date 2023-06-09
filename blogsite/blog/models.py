@@ -11,6 +11,15 @@ class PublishedManager(models.Manager):
         return super().get_queryset().filter(status=Post.Status.PUBLISHED)
 
 
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="profile")
+    bio = models.TextField(blank=True)
+    avatar = models.ImageField(upload_to="avatars/", blank=True)
+
+    def __str__(self):
+        return self.user.username
+
+
 class Category(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(unique=True)
@@ -19,6 +28,7 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return self.title
+
 
 class Post(models.Model):
     class Status(models.TextChoices):
@@ -32,7 +42,8 @@ class Post(models.Model):
     )
     body = models.TextField()
     publish = models.DateTimeField(default=timezone.now)
-    image = models.ImageField(upload_to='post_images/')
+    image = models.ImageField(upload_to="post_images/")
+    user_visit = models.IntegerField(default=0)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(
@@ -56,8 +67,8 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse(
-            "blog:post_detail",
-            args=[self.publish.year, self.publish.month, self.publish.day, self.slug],
+            "blog:single_post",
+            args=[self.id],
         )
 
 

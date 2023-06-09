@@ -14,33 +14,41 @@ def get_dashboard(request):
     filtered_posts = {}
     for category in categories:
         if category.title == "Business":
-            filtered_posts["business_posts"] = category.posts.filter(
-                title="Business"
-            )
+            filtered_posts["business_posts"] = category.posts.filter(category=category)
         elif category.title == "Culture":
-            filtered_posts["culture_posts"] = category.posts.filter(title="Culture")
+            filtered_posts["culture_posts"] = category.posts.filter(category=category)
+        elif category.title == "Lifestyle":
+            filtered_posts["lifestyle_posts"] = category.posts.filter(category=category)
         elif category.title == "Sport":
-            filtered_posts["sport_posts"] = category.posts.filter(title="Sport")
+            filtered_posts["sport_posts"] = category.posts.filter(category=category)
         elif category.title == "Food":
-            filtered_posts["food_posts"] = category.posts.filter(title="Food")
+            filtered_posts["food_posts"] = category.posts.filter(category=category)
         elif category.title == "Politics":
-            filtered_posts["politics_posts"] = category.posts.filter(
-                title="Politics"
-            )
+            filtered_posts["politics_posts"] = category.posts.filter(category=category)
         elif category.title == "Celebrity":
-            filtered_posts["celebrity_posts"] = category.posts.filter(
-                title="Celebrity"
-            )
+            filtered_posts["celebrity_posts"] = category.posts.filter(category=category)
         elif category.title == "Startups":
-            filtered_posts["startup_posts"] = category.posts.filter(title="Startups")
+            filtered_posts["startup_posts"] = category.posts.filter(category=category)
         elif category.title == "Travel":
-            filtered_posts["business_posts"] = category.posts.filter(title="Travel")
+            filtered_posts["travel_posts"] = category.posts.filter(category=category)
+        elif category.title == "Design":
+            filtered_posts["design_posts"] = category.posts.filter(category=category)
+        elif category.title == "Tech":
+            filtered_posts["tech_posts"] = category.posts.filter(category=category)
+    filtered_posts["categories"] = categories
+    filtered_posts["posts"] = posts
 
-    print({"categories": categories, "posts": posts}.update(filtered_posts))
+    return render(request, "blog/zenblog/index.html", context=filtered_posts)
 
-    return render(
-        request, "blog/zenblog/index.html", {"categories": categories, "posts": posts}.update(filtered_posts)
-    )
+
+def get_post_by_id(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    print(request.user)
+    if request.user and (request.user != post.author):
+        post.user_visit += 1
+        post.save()
+
+    return render(request, "blog/zenblog/single-post.html", {"post": post})
 
 
 def get_contact_blog(request):
