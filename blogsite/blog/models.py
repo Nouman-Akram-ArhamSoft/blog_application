@@ -29,6 +29,12 @@ class Category(models.Model):
     def __str__(self) -> str:
         return self.title
 
+    def get_absolute_url(self):
+        return reverse(
+            "blog:single_category",
+            args=[self.id],
+        )
+
 
 class Post(models.Model):
     class Status(models.TextChoices):

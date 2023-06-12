@@ -1,0 +1,105 @@
+<!-- ======= Culture Category Section ======= -->
+<section class="category-section">
+    <div class="container" data-aos="fade-up">
+
+        <div class="section-header d-flex justify-content-between align-items-center mb-5">
+            <h2>{{ section_posts.0.category.title }}</h2>
+            <div><a href="category.html" class="more">See All {{ section_posts.0.category.title }}</a></div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-9">
+
+                {% if section_posts|length > 0 %}
+                    <div class="d-lg-flex post-entry-2">
+                        <a href="{{ section_posts.0.get_absolute_url }}"
+                           class="me-4 thumbnail mb-4 mb-lg-0 d-inline-block">
+                            <img src="{{ section_posts.0.image.url }}" alt="" class="custom-img-g">
+                        </a>
+                        <div>
+                            <div class="post-meta"><span
+                                    class="date">{{ section_posts.0.category.title }}</span> <span
+                                    class="mx-1">&bullet;</span>
+                                <span>{{ section_posts.0.category.name }}</span></div>
+                            <h3>
+                                <a href="{{ section_posts.0.get_absolute_url }}">{{ section_posts.0.title }}</a>
+                            </h3>
+                            <p>{{ section_posts.0.body|truncatewords:50|linebreaks}}</p>
+                            <div class="d-flex align-items-center author">
+                                <div class="photo"><img
+                                        src="{{ section_posts.0.author.profile.avatar.url }}" alt=""
+                                        class="img-fluid"></div>
+                                <div class="name">
+                                    <h3 class="m-0 p-0">{{ section_posts.0.author.first_name }} {{ section_posts.0.author.last_name }}</h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                {% if section_posts|length > 1 %}
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <div class="post-entry-1 border-bottom">
+                                <a href="{{ section_posts.1.get_absolute_url }}"><img
+                                        src="{{ section_posts.1.image.url }}" alt="" class="img-fluid"></a>
+                                <div class="post-meta"><span
+                                        class="date">{{ section_posts.1.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span>
+                                    <span>{{ section_posts.1.created|date:"F j, Y"}}</span></div>
+                                <h2 class="mb-2"><a
+                                        href="{{ section_posts.1.get_absolute_url }}">{{ section_posts.1.title }}</a>
+                                </h2>
+                                <span class="author mb-3 d-block">{{ section_posts.1.author.first_name }} {{ section_posts.1.author.last_name }}</span>
+                                <p class="mb-4 d-block">
+                                    {{ section_posts.0.body|truncatewords:25|linebreaks}}</p>
+                            </div>
+
+                            <div class="post-entry-1">
+                                <div class="post-meta"><span
+                                        class="date">{{ section_posts.2.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span>
+                                    <span>{{ section_posts.2.created|date:"F j, Y"}}</span></div>
+                                <h2 class="mb-2"><a
+                                        href="{{ section_posts.2.get_absolute_url }}">{{ section_posts.2.title }}</a>
+                                </h2>
+                                <span class="author mb-3 d-block">{{ section_posts.2.author.first_name }} {{ section_posts.2.author.last_name }}</span>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
+                            <div class="post-entry-1">
+                                <a href="single-post.html"><img src="{{ section_posts.3.image.url }}"
+                                                                alt="" class="custom-image"></a>
+                                <div class="post-meta"><span
+                                        class="date">{{ section_posts.3.category.title }}</span> <span
+                                        class="mx-1">&bullet;</span>
+                                    <span>{{ section_posts.3.created|date:"F j, Y"}}</span></div>
+                                <h2 class="mb-2"><a
+                                        href="{{ section_posts.3.get_absolute_url }}">{{ section_posts.3.title }}</a>
+                                </h2>
+                                <span class="author mb-3 d-block">{{ section_posts.3.author.first_name }} {{ section_posts.3.author.last_name }}</span>
+                                <p class="mb-4 d-block">
+                                    {{ section_posts.3.body|truncatewords:100|linebreaks}}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-3">
+                {% for section_post in section_posts|slice:"4:" %}
+                    <div class="post-entry-1 border-bottom">
+                        <div class="post-meta"><span
+                                class="date">{{ section_post.category.title }}</span> <span
+                                class="mx-1">&bullet;</span>
+                            <span>{{ section_post.created|date:"F j, Y"}}</span></div>
+                        <h2 class="mb-2"><a
+                                href="{{ section_post.get_absolute_url }}">{{ section_post.title }}</a>
+                        </h2>
+                        <span class="author mb-3 d-block">{{ section_post.author.first_name }} {{ section_post.author.last_name }}</span>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</section><!-- End Culture Category Section -->

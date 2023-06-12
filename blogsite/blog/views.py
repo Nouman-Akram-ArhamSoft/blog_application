@@ -19,31 +19,33 @@ def get_dashboard(request):
             filtered_posts["culture_posts"] = category.posts.filter(category=category)
         elif category.title == "Lifestyle":
             filtered_posts["lifestyle_posts"] = category.posts.filter(category=category)
-        elif category.title == "Sport":
-            filtered_posts["sport_posts"] = category.posts.filter(category=category)
-        elif category.title == "Food":
-            filtered_posts["food_posts"] = category.posts.filter(category=category)
-        elif category.title == "Politics":
-            filtered_posts["politics_posts"] = category.posts.filter(category=category)
-        elif category.title == "Celebrity":
-            filtered_posts["celebrity_posts"] = category.posts.filter(category=category)
-        elif category.title == "Startups":
-            filtered_posts["startup_posts"] = category.posts.filter(category=category)
-        elif category.title == "Travel":
-            filtered_posts["travel_posts"] = category.posts.filter(category=category)
-        elif category.title == "Design":
-            filtered_posts["design_posts"] = category.posts.filter(category=category)
-        elif category.title == "Tech":
-            filtered_posts["tech_posts"] = category.posts.filter(category=category)
+
     filtered_posts["categories"] = categories
     filtered_posts["posts"] = posts
 
     return render(request, "blog/zenblog/index.html", context=filtered_posts)
 
 
+def get_category_by_id(request, category_id):
+    category = get_object_or_404(Category, id=category_id)
+    posts = category.posts.all()
+    paginator = Paginator(posts, 4)
+    page_number = request.GET.get("page", 1)
+    try:
+        posts = paginator.page(page_number)
+
+    except PageNotAnInteger:
+        # If page_number is not an integer deliver the first page
+        posts = paginator.page(1)
+
+    except EmptyPage:
+        # If page_number is out of range deliver last page of results
+        posts = paginator.page(paginator.num_pages)
+    return render(request, "blog/zenblog/category.html", {"category": category, "posts": posts})
+
+
 def get_post_by_id(request, post_id):
     post = get_object_or_404(Post, id=post_id)
-    print(request.user)
     if request.user and (request.user != post.author):
         post.user_visit += 1
         post.save()

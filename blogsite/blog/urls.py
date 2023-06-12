@@ -9,6 +9,7 @@ urlpatterns = [
     path("", views.get_dashboard, name="blog_wave"),
     path("contact/", views.get_contact_blog, name="contact"),
     path("category/", views.get_category, name="category"),
+    path("<int:category_id>/category", views.get_category_by_id, name="single_category"),
     path("about/", views.get_about, name="about"),
     path("<int:post_id>/post", views.get_post_by_id, name="single_post"),
     # path("", views.PostListView.as_view(), name="post_list"),

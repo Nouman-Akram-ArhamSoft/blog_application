@@ -925,6 +925,22 @@ section {
   border: 1px solid rgba(var(--color-black-rgb), 0.5);
 }
 
+.custom-img img{
+  width: 150%;
+  height: 150% !important;
+  object-fit: cover;
+
+  @media (max-width: 768px) {
+    width: 80%; /* Adjust the width for smaller screens */
+  }
+
+  /* Media query for screens with a maximum width of 576px */
+  @media (max-width: 576px) {
+    width: 100%; /* Adjust the width for even smaller screens */
+  }
+}
+
+
 img.custom-image{
   width: 90% !important;
   height: auto !important;
@@ -939,6 +955,8 @@ img.custom-image{
     width: 100%; /* Adjust the width for even smaller screens */
   }
 }
+
+
 /*--------------------------------------------------------------
 # Comments
 --------------------------------------------------------------*/
