@@ -1,19 +1,18 @@
 <div class="text-start py-4">
     <div class="custom-pagination">
         {% if page.has_previous %}
-            <a href="?page={{ page.previous_page_number }}">Previous</a>
+            <a href="?page={{ page.previous_page_number }}" class="prev">Previous</a>
         {% endif %}
-        {% for num_page in page.number %}
-            <a href="{{ num_page.number }}" class="active">{{ num_page.number }}</a>
-        {% endfor %}
 
-        <a href="?page=1" class="active">1</a>
-        <a href="?page=1">2</a>
-        <a href="#">3</a>
-        <a href="#">4</a>
-        <a href="#">5</a>
+        {% for i in pagination_range %}
+            {% if i == page_number %}
+                <a href="?page={{ i }}" class="active">{{ i }}</a>
+            {% else %}
+                <a href="?page={{ i }}">{{ i }}</a>
+            {% endif %}
+        {% endfor %}
         {% if page.has_next %}
-            <a href="?page={{ page.next_page_number }}">Next</a>
+            <a href="?page={{ page.next_page_number }}" class="next">Next</a>
         {% endif %}
     </div>
 </div>

@@ -28,6 +28,7 @@ def get_dashboard(request):
 
 def get_category_by_id(request, category_id):
     category = get_object_or_404(Category, id=category_id)
+    categories = Category.objects.all()
     posts = category.posts.all()
     paginator = Paginator(posts, 4)
     page_number = request.GET.get("page", 1)
@@ -41,16 +42,24 @@ def get_category_by_id(request, category_id):
     except EmptyPage:
         # If page_number is out of range deliver last page of results
         posts = paginator.page(paginator.num_pages)
-    return render(request, "blog/zenblog/category.html", {"category": category, "posts": posts})
+    return render(request, "blog/zenblog/category.html",
+                  {
+                      "category": category,
+                      "posts": posts,
+                      "pagination_range": paginator.page_range,
+                      "page_number": int(page_number),
+                      "categories": categories
+                  })
 
 
 def get_post_by_id(request, post_id):
     post = get_object_or_404(Post, id=post_id)
+    categories = Category.objects.all()
     if request.user and (request.user != post.author):
         post.user_visit += 1
         post.save()
 
-    return render(request, "blog/zenblog/single-post.html", {"post": post})
+    return render(request, "blog/zenblog/single-post.html", {"post": post, "categories": categories})
 
 
 def get_contact_blog(request):
